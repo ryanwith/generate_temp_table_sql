@@ -13,15 +13,16 @@ class SQLGenerator:
             raise ValueError("Dataframe is not loaded. Call load_csv() first.")
         
         columns = self.dataframe.columns
-        column_definitions = ", ".join([f"{col} TEXT" for col in columns])
+        # Join columns with a newline and tab for better formatting
+        column_definitions = ",\n\t".join([f"{col.strip()} TEXT" for col in columns])
         
-        create_table_query = f"""
-        CREATE TEMP TABLE {table_name} (
-            {column_definitions}
-        );
-        """
+        create_table_query = (
+            f"CREATE TEMP TABLE {table_name} (\n"
+            f"\t{column_definitions}\n"
+            ");"
+        )
         return create_table_query.strip()
-
+        
     def insert_data_sql(self, table_name='temp_table'):
         if self.dataframe is None:
             raise ValueError("Dataframe is not loaded. Call load_csv() first.")

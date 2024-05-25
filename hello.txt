@@ -1,0 +1,11 @@
+--Create Table SQL:
+CREATE TEMP TABLE temp_table (
+	name TEXT,
+	age TEXT,
+	city TEXT
+);
+
+--Insert Data SQL:
+INSERT INTO temp_table (name,  age,  city) VALUES ('John', '30', 'New York'),
+('Jane', '25', 'Los Angeles'),
+('Xufan', '30', 'Roosevelt Island');

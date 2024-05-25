@@ -1,4 +1,4 @@
-﻿id,name,address
-1,ryan,1 Main St.
-2,jeff,2 Main St.
-3,"jim-bob jones, whatever",3 Main St.
+﻿name, age, city
+John,30,New York
+Jane,25,Los Angeles
+Xufan,30,Roosevelt Island
