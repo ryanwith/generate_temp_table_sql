@@ -38,9 +38,9 @@ class SQLGenerator:
             else:
                 punctuation = ','
             if counter == 1:
-                insert_statement = f"INSERT INTO {table_name} ({columns}) VALUES ({values}){punctuation}"
+                insert_statement = f"INSERT INTO {table_name} ({columns}) VALUES\n\t({values}){punctuation}"
             else:
-                insert_statement = f"({values}){punctuation}"
+                insert_statement = f"\t({values}){punctuation}"
             insert_statements.append(insert_statement)
             counter = counter + 1
         return insert_statements
