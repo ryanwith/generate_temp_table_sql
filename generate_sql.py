@@ -6,13 +6,19 @@ def main():
     parser = argparse.ArgumentParser(description='Process a CSV file to generate SQL statements.')
     parser.add_argument('csv_file', type=str, help='The path to the CSV file')
     parser.add_argument('-o', '--output_file', type=str, help='The path to the output SQL file', default=None)
+    parser.add_argument('--overwrite', action='store_true', help='Allow overwriting the output file if it exists')
 
     args = parser.parse_args()
     
+    # Use specified output file name or generate a default one
     if args.output_file is None:
         base_name = os.path.splitext(os.path.basename(args.csv_file))[0]
         args.output_file = os.path.join(os.getcwd(), base_name + '_temp_table.sql')
 
+    # Check if the file exists and handle accordingly
+    if os.path.exists(args.output_file) and not args.overwrite:
+        print(f"Error: The file '{args.output_file}' already exists. Use --overwrite to allow overwriting.")
+        return
     
     sql_generator = SQLGenerator(args.csv_file)
     
