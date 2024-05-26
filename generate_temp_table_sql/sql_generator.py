@@ -31,14 +31,14 @@ class SQLGenerator:
         counter = 1
         total_rows = self.dataframe.shape[0]
         for _, row in self.dataframe.iterrows():
-            columns = ', '.join(self.dataframe.columns)
+            # columns = ', '.join(self.dataframe.columns)
             values = ', '.join([f"'{str(value)}'" for value in row])
             if counter == total_rows:
                 punctuation = ";"
             else:
                 punctuation = ','
             if counter == 1:
-                insert_statement = f"INSERT INTO {table_name} ({columns}) VALUES\n\t({values}){punctuation}"
+                insert_statement = f"INSERT INTO {table_name} VALUES\n\t({values}){punctuation}"
             else:
                 insert_statement = f"\t({values}){punctuation}"
             insert_statements.append(insert_statement)

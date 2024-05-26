@@ -30,7 +30,7 @@ class TestSQLGenerator(unittest.TestCase):
         self.sql_generator.load_csv()
         insert_data_sql = self.sql_generator.insert_data_sql('test_table')
         expected_sql = [
-            "INSERT INTO test_table (name, age, city) VALUES\n\t('John', '30', 'New York'),",
+            "INSERT INTO test_table VALUES\n\t('John', '30', 'New York'),",
             "\t('Jane', '25', 'Los Angeles');"
         ]
         self.assertEqual(insert_data_sql, expected_sql)
@@ -47,7 +47,7 @@ class TestSQLGenerator(unittest.TestCase):
             ");"
         )
         expected_insert_data_sql = [
-            "INSERT INTO test_table (name, age, city) VALUES\n\t('John', '30', 'New York'),",
+            "INSERT INTO test_table VALUES\n\t('John', '30', 'New York'),",
             "\t('Jane', '25', 'Los Angeles');"
         ]
         
