@@ -8,13 +8,13 @@ class SQLGenerator:
     def load_csv(self):
         self.dataframe = pd.read_csv(self.csv_file_path)
 
-    def create_temp_table_sql(self, table_name='temp_table'):
+    def create_temp_table_sql(self, table_name='temp_table', column_type='TEXT'):
         if self.dataframe is None:
             raise ValueError("Dataframe is not loaded. Call load_csv() first.")
         
         columns = self.dataframe.columns
         # Join columns with a newline and tab for better formatting
-        column_definitions = ",\n\t".join([f"{col.strip()} TEXT" for col in columns])
+        column_definitions = ",\n\t".join([f"{col.strip()} {column_type}" for col in columns])
         
         create_table_query = (
             f"CREATE TEMP TABLE {table_name} (\n"
@@ -45,9 +45,9 @@ class SQLGenerator:
             counter = counter + 1
         return insert_statements
 
-    def generate_sql(self, table_name='temp_table'):
+    def generate_sql(self, table_name='temp_table', column_type = 'TEXT'):
         self.load_csv()
-        create_table_sql = self.create_temp_table_sql(table_name)
+        create_table_sql = self.create_temp_table_sql(table_name, column_type)
         insert_data_sql = self.insert_data_sql(table_name)
         return create_table_sql, insert_data_sql
 

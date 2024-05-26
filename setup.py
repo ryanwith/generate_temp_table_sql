@@ -9,11 +9,11 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'generate-sql=generate_temp_table_sql.cli:main',
+            'generate-tt-sql=generate_temp_table_sql.cli:main',
         ],
     },
-    author='Your Name',
-    author_email='your.email@example.com',
+    author='Ryan Waldorf',
+    author_email='ryan@ryanwaldorf.com',
     description='A package to generate SQL statements from CSV files',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
