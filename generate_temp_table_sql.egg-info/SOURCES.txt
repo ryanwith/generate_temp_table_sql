@@ -4,6 +4,7 @@ README.md
 setup.py
 generate_temp_table_sql/__init__.py
 generate_temp_table_sql/cli.py
+generate_temp_table_sql/constants.py
 generate_temp_table_sql/sql_generator.py
 generate_temp_table_sql.egg-info/PKG-INFO
 generate_temp_table_sql.egg-info/SOURCES.txt
