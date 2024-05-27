@@ -29,16 +29,17 @@ class TestSQLGenerator(unittest.TestCase):
     
     def test_insert_data_sql(self):
         self.sql_generator.load_csv()
-        insert_data_sql = self.sql_generator.insert_data_sql('test_table1')
+        insert_data_sql = self.sql_generator.insert_data_sql('test_table1', None)
         expected_sql = [
-            "INSERT INTO test_table1 VALUES\n\t('John', '30', 'New York'),",
+            "INSERT INTO test_table1 VALUES",
+            "\t('John', '30', 'New York'),",
             "\t('Jane', '25', 'Los Angeles');"
         ]
         self.assertEqual(insert_data_sql, expected_sql)
     
     def test_generate_sql_with_custom_values(self):
         self.sql_generator.load_csv()
-        create_table_sql, insert_data_sql = self.sql_generator.generate_sql('test_table1', 'STRING')
+        create_table_sql, insert_data_sql = self.sql_generator.generate_sql('test_table1', 'STRING', None)
         
         expected_create_table_sql = (
             "CREATE TEMP TABLE test_table1 (\n"
@@ -48,7 +49,8 @@ class TestSQLGenerator(unittest.TestCase):
             ");"
         )
         expected_insert_data_sql = [
-            "INSERT INTO test_table1 VALUES\n\t('John', '30', 'New York'),",
+            "INSERT INTO test_table1 VALUES",
+            "\t('John', '30', 'New York'),",
             "\t('Jane', '25', 'Los Angeles');"
         ]
         
@@ -57,7 +59,7 @@ class TestSQLGenerator(unittest.TestCase):
 
     def test_default_table_name_and_column_type(self):
         self.sql_generator.load_csv()
-        create_table_sql, insert_data_sql = self.sql_generator.generate_sql(None, None)
+        create_table_sql, insert_data_sql = self.sql_generator.generate_sql(None, None, None)
         
         expected_create_table_sql = (
             f"CREATE TEMP TABLE {Constants.DEFAULT_TABLE_NAME} (\n"
@@ -67,7 +69,8 @@ class TestSQLGenerator(unittest.TestCase):
             ");"
         )
         expected_insert_data_sql = [
-            f"INSERT INTO {Constants.DEFAULT_TABLE_NAME} VALUES\n\t('John', '30', 'New York'),",
+            f"INSERT INTO {Constants.DEFAULT_TABLE_NAME} VALUES",
+            "\t('John', '30', 'New York'),",
             "\t('Jane', '25', 'Los Angeles');"
         ]
         
@@ -88,7 +91,7 @@ class TestSQLGenerator(unittest.TestCase):
             ");"
         )
         
-        insert_data_sql = sql_generator_empty.insert_data_sql('test_table')
+        insert_data_sql = sql_generator_empty.insert_data_sql('test_table', None)
         expected_insert_data_sql = []
         
         self.assertEqual(create_table_sql, expected_create_table_sql)
@@ -99,9 +102,10 @@ class TestSQLGenerator(unittest.TestCase):
         sql_generator_with_nan = SQLGenerator(self.csv_file_path_with_nan)
         sql_generator_with_nan.load_csv()
         
-        insert_data_sql = sql_generator_with_nan.insert_data_sql('test_table')
+        insert_data_sql = sql_generator_with_nan.insert_data_sql('test_table', None)
         expected_sql = [
-            "INSERT INTO test_table VALUES\n\t('John', '30', 'New York'),",
+            "INSERT INTO test_table VALUES",
+            "\t('John', '30', 'New York'),",
             "\t('Jane', NULL, 'Los Angeles');"
         ]
         
