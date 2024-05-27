@@ -18,8 +18,7 @@ class SQLGenerator:
             raise ValueError("Dataframe is not loaded. Call load_csv() first.")
         
         columns = self.dataframe.columns
-        # Join columns with a newline and tab for better formatting
-        column_definitions = ",\n\t".join([f"{col.strip()} {column_type}" for col in columns])
+        column_definitions = ",\n\t".join([f"\"{col.strip()}\" {column_type}" for col in columns])
         
         create_table_query = (
             f"CREATE TEMP TABLE {table_name} (\n"

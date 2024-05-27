@@ -12,7 +12,7 @@ class TestSQLGenerator(unittest.TestCase):
     def test_load_csv(self):
         self.sql_generator.load_csv()
         self.assertIsNotNone(self.sql_generator.dataframe)
-        self.assertEqual(list(self.sql_generator.dataframe.columns), ['name', 'age', 'city'])
+        self.assertEqual(list(self.sql_generator.dataframe.columns), ['name', 'age', 'current city'])
         self.assertEqual(len(self.sql_generator.dataframe), 2)
     
     def test_create_temp_table_sql(self):
@@ -20,9 +20,9 @@ class TestSQLGenerator(unittest.TestCase):
         create_table_sql = self.sql_generator.create_temp_table_sql('test_table1', 'STRING')
         expected_sql = (
             "CREATE TEMP TABLE test_table1 (\n"
-            "\tname STRING,\n"
-            "\tage STRING,\n"
-            "\tcity STRING\n"
+            "\t\"name\" STRING,\n"
+            "\t\"age\" STRING,\n"
+            "\t\"current city\" STRING\n"
             ");"
         )
         self.assertEqual(create_table_sql, expected_sql)
@@ -43,9 +43,9 @@ class TestSQLGenerator(unittest.TestCase):
         
         expected_create_table_sql = (
             "CREATE TEMP TABLE test_table1 (\n"
-            "\tname STRING,\n"
-            "\tage STRING,\n"
-            "\tcity STRING\n"
+            "\t\"name\" STRING,\n"
+            "\t\"age\" STRING,\n"
+            "\t\"current city\" STRING\n"
             ");"
         )
         expected_insert_data_sql = [
@@ -63,9 +63,9 @@ class TestSQLGenerator(unittest.TestCase):
         
         expected_create_table_sql = (
             f"CREATE TEMP TABLE {Constants.DEFAULT_TABLE_NAME} (\n"
-            f"\tname {Constants.DEFAULT_COLUMN_TYPE},\n"
-            f"\tage {Constants.DEFAULT_COLUMN_TYPE},\n"
-            f"\tcity {Constants.DEFAULT_COLUMN_TYPE}\n"
+            f"\t\"name\" {Constants.DEFAULT_COLUMN_TYPE},\n"
+            f"\t\"age\" {Constants.DEFAULT_COLUMN_TYPE},\n"
+            f"\t\"current city\" {Constants.DEFAULT_COLUMN_TYPE}\n"
             ");"
         )
         expected_insert_data_sql = [
@@ -85,9 +85,9 @@ class TestSQLGenerator(unittest.TestCase):
         create_table_sql = sql_generator_empty.create_temp_table_sql('test_table', 'TEXT')
         expected_create_table_sql = (
             "CREATE TEMP TABLE test_table (\n"
-            "\tname TEXT,\n"
-            "\tage TEXT,\n"
-            "\tcity TEXT\n"
+            "\t\"name\" TEXT,\n"
+            "\t\"age\" TEXT,\n"
+            "\t\"current city\" TEXT\n"
             ");"
         )
         
