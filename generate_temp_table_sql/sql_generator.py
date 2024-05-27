@@ -1,6 +1,10 @@
 import pandas as pd
-
+from .constants import Constants
 class SQLGenerator:
+
+    #defaults if not specified
+
+
     def __init__(self, csv_file_path):
         self.csv_file_path = csv_file_path
         self.dataframe = None
@@ -8,7 +12,7 @@ class SQLGenerator:
     def load_csv(self):
         self.dataframe = pd.read_csv(self.csv_file_path)
 
-    def create_temp_table_sql(self, table_name='temp_table', column_type='TEXT'):
+    def create_temp_table_sql(self, table_name, column_type):
         if self.dataframe is None:
             raise ValueError("Dataframe is not loaded. Call load_csv() first.")
         
@@ -23,7 +27,7 @@ class SQLGenerator:
         )
         return create_table_query.strip()
 
-    def insert_data_sql(self, table_name='temp_table'):
+    def insert_data_sql(self, table_name):
         if self.dataframe is None:
             raise ValueError("Dataframe is not loaded. Call load_csv() first.")
         
@@ -45,31 +49,12 @@ class SQLGenerator:
             counter += 1
         return insert_statements
 
-
-    # def insert_data_sql(self, table_name='temp_table'):
-    #     if self.dataframe is None:
-    #         raise ValueError("Dataframe is not loaded. Call load_csv() first.")
-        
-    #     insert_statements = []
-    #     counter = 1
-    #     total_rows = self.dataframe.shape[0]
-    #     for _, row in self.dataframe.iterrows():
-    #         # columns = ', '.join(self.dataframe.columns)
-    #         values = ', '.join([f"'{str(value)}'" for value in row])
-    #         if counter == total_rows:
-    #             punctuation = ";"
-    #         else:
-    #             punctuation = ','
-    #         if counter == 1:
-    #             insert_statement = f"INSERT INTO {table_name} VALUES\n\t({values}){punctuation}"
-    #         else:
-    #             insert_statement = f"\t({values}){punctuation}"
-    #         insert_statements.append(insert_statement)
-    #         counter = counter + 1
-    #     return insert_statements
-
-    def generate_sql(self, table_name='temp_table', column_type = 'TEXT'):
+    def generate_sql(self, table_name, column_type):
         self.load_csv()
+        if table_name == None:
+            table_name = Constants.DEFAULT_TABLE_NAME
+        if column_type == None:
+            column_type = Constants.DEFAULT_COLUMN_TYPE
         create_table_sql = self.create_temp_table_sql(table_name, column_type)
         insert_data_sql = self.insert_data_sql(table_name)
         return create_table_sql, insert_data_sql

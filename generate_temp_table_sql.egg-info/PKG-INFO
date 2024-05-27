@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: generate-temp-table-sql
-Version: 0.1
+Version: 0.2
 Summary: A package to generate SQL statements from CSV files
 Home-page: https://github.com/yourusername/generate_temp_table_sql
 Author: Ryan Waldorf

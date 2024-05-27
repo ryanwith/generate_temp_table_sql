@@ -39,7 +39,7 @@ After installing the package, you can use the `generate-tt-sql` command to gener
 
 To generate SQL statements and save them to a file:
 ```sh
-generate-sql path/to/your/file.csv
+generate-tt-sql path/to/your/file.csv
 ```
 
 #### Additional Options

@@ -1,0 +1,3 @@
+[console_scripts]
+generate-tt-sql = generate_temp_table_sql.cli:main
+
