@@ -33,7 +33,7 @@ class TestSQLGenerator(unittest.TestCase):
         expected_sql = [
             "INSERT INTO test_table1 VALUES",
             "\t('John', '30', 'New York'),",
-            "\t('Jane', '25', 'Los Angeles');"
+            "\t('Jane', '25', 'Los Angeles');\n"
         ]
         self.assertEqual(insert_data_sql, expected_sql)
     
@@ -51,11 +51,33 @@ class TestSQLGenerator(unittest.TestCase):
         expected_insert_data_sql = [
             "INSERT INTO test_table1 VALUES",
             "\t('John', '30', 'New York'),",
-            "\t('Jane', '25', 'Los Angeles');"
+            "\t('Jane', '25', 'Los Angeles');\n"
         ]
         
         self.assertEqual(create_table_sql, expected_create_table_sql)
         self.assertEqual(insert_data_sql, expected_insert_data_sql)
+
+    def test_generate_sql_with_batch_size(self):
+        self.sql_generator.load_csv()
+        create_table_sql, insert_data_sql = self.sql_generator.generate_sql(None, None, 1)
+        
+        expected_create_table_sql = (
+            "CREATE TEMP TABLE table_name (\n"
+            "\t\"name\" TEXT,\n"
+            "\t\"age\" TEXT,\n"
+            "\t\"current city\" TEXT\n"
+            ");"
+        )
+        expected_insert_data_sql = [
+            "INSERT INTO table_name VALUES",
+            "\t('John', '30', 'New York');\n",
+            "INSERT INTO table_name VALUES",
+            "\t('Jane', '25', 'Los Angeles');\n"
+        ]
+        
+        self.assertEqual(create_table_sql, expected_create_table_sql)
+        self.assertEqual(insert_data_sql, expected_insert_data_sql)
+
 
     def test_default_table_name_and_column_type(self):
         self.sql_generator.load_csv()
@@ -71,7 +93,7 @@ class TestSQLGenerator(unittest.TestCase):
         expected_insert_data_sql = [
             f"INSERT INTO {Constants.DEFAULT_TABLE_NAME} VALUES",
             "\t('John', '30', 'New York'),",
-            "\t('Jane', '25', 'Los Angeles');"
+            "\t('Jane', '25', 'Los Angeles');\n"
         ]
         
         self.assertEqual(create_table_sql, expected_create_table_sql)
@@ -106,7 +128,7 @@ class TestSQLGenerator(unittest.TestCase):
         expected_sql = [
             "INSERT INTO test_table VALUES",
             "\t('John', '30', 'New York'),",
-            "\t('Jane', NULL, 'Los Angeles');"
+            "\t('Jane', NULL, 'Los Angeles');\n"
         ]
         
         self.assertEqual(insert_data_sql, expected_sql)

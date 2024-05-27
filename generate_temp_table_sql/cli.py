@@ -9,7 +9,7 @@ def main():
     parser.add_argument('--overwrite', action='store_true', help='Allow overwriting the output file if it exists')
     parser.add_argument('--table_name', type=str, help='The name of the temp table you will create')
     parser.add_argument('--column_type', type=str, help='The data type of the columns in the temp table.  Defaults to TEXT which works for Redshift and Snowflake.  BigQuery requires STRING.')
-    parser.add_argument('--rows', type=str, help='The number of rows inserted per insert statement per file.  If present, it creates multiple insert statements split between multiple files based on the number of rows specified.')
+    parser.add_argument('--batch_size', type=int, help='The number of rows inserted per insert statement.  If present, it creates multiple insert statements based on the batch size specified.')
 
     args = parser.parse_args()
     
@@ -27,7 +27,7 @@ def main():
     
     sql_generator.load_csv()
     
-    create_table_sql, insert_data_sql = sql_generator.generate_sql(args.table_name, args.column_type, args.rows)
+    create_table_sql, insert_data_sql = sql_generator.generate_sql(args.table_name, args.column_type, args.batch_size)
     
     with open(args.output_file, 'w') as f:
         f.write("--Create Table SQL:\n")

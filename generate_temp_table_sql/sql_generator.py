@@ -27,28 +27,31 @@ class SQLGenerator:
         )
         return create_table_query.strip()
 
-    def insert_data_sql(self, table_name, rows):
+    def insert_data_sql(self, table_name, batch_size):
         if self.dataframe is None:
             raise ValueError("Dataframe is not loaded. Call load_csv() first.")
         
         insert_statements = []
         counter = 1
-        total_rows = self.dataframe.shape[0]
-        if rows == None:
-            rows = total_rows
+        overall_counter = 1
+        total_rows = self.dataframe.shape[0] 
+        if batch_size == None:
+            batch_size = total_rows
         for _, row in self.dataframe.iterrows():
             columns = ', '.join(self.dataframe.columns)
             values = ', '.join([f"'{str(value).strip()}'" if not pd.isna(value) else 'NULL' for value in row])
-            if counter == total_rows:
-                punctuation = ";"
-            else:
-                punctuation = ','
             if counter == 1:
                 insert_clause = f"INSERT INTO {table_name} VALUES"
                 insert_statements.append(insert_clause)
-            insert_statement = f"\t({values}){punctuation}"
+            # adds a semicolon for the end of the batch, comma otherwise
+            if counter == batch_size or overall_counter == total_rows:
+                insert_statement = f"\t({values});\n"
+                counter = 0
+            else:
+                insert_statement = f"\t({values}),"
             insert_statements.append(insert_statement)
             counter += 1
+            overall_counter += 1
         return insert_statements
 
     def generate_sql(self, table_name, column_type, rows):
