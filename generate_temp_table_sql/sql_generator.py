@@ -10,7 +10,8 @@ class SQLGenerator:
         self.dataframe = None
 
     def load_csv(self):
-        self.dataframe = pd.read_csv(self.csv_file_path)
+        # converts all values to string so processing can be done on the warehouse side
+        self.dataframe = pd.read_csv(self.csv_file_path, dtype=str)
 
     def create_temp_table_sql(self, table_name, column_type):
         if self.dataframe is None:
@@ -42,7 +43,7 @@ class SQLGenerator:
             else:
                 punctuation = ','
             if counter == 1:
-                insert_statement = f"INSERT INTO {table_name} ({columns}) VALUES \n\t({values}){punctuation}"
+                insert_statement = f"INSERT INTO {table_name} VALUES\n\t({values}){punctuation}"
             else:
                 insert_statement = f"\t({values}){punctuation}"
             insert_statements.append(insert_statement)
