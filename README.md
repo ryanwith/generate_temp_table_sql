@@ -51,6 +51,7 @@ generate-tt-sql path/to/your/file.csv
 --overwrite: Allow overwriting the output file if it exists.
 --table_name: Specify the name of the temporary table to create.
 --column_type: Specify the data type of the columns in the temporary table. Defaults to TEXT which works for Redshift and Snowflake. Use STRING for BigQuery.
+--batch_size: Specify the number of rows inserted per insert statement.  If present, it creates multiple insert statements based on the batch size specified.
 ```
 
 #### Example
@@ -82,6 +83,8 @@ INSERT INTO my_temp_table (name, age, city) VALUES
     ('John', '30', 'New York'),
     ('Jane', '25', 'Los Angeles');
 ```
+
+All arguments are optional except the csv
 
 #### Running Tests
 To run the tests, use the following command:
