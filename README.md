@@ -2,7 +2,13 @@
 
 Generate Temp Table SQL is a Python package that generates SQL statements for creating a temporary table and inserting data from a CSV file.  It's useful when you need to move data between disconnected databases and data warehouses.  You can now simply unload a CSV, turn that CSV into SQL statements creating a temp table and inserting data with a CLI command, and copy those SQL statements into your query editor so you can start using the data in a different warehouse.
 
-<b>Why did I build this?</b>  I'm often wondering how a product I'm working on is linked to customer spend.  However, my operational warehouse that includes data like the dates and times customers used a product is separate from my financial warehouse which has the billing data.  I need to move data from one to the other so I can join the finance and product data together to do an analysis...and turning the CSV into SQL by hand in excel is a PITA.  With this, I can now move the data in seconds.  I simply download the CSV, run <code>generate-tt-sql csv_name.csv</code> in my terminal, and copy it into my query editor.  It's immediately available to query so I can go straight to analysis.
+<b>Why did I build this?</b>  I often need to move data between disconnected warehouses.  E.g. when I need to join data in my finance warehouse with data in my operational warehouse to see how a feature is linked to customer spend.  I can use excel to convert a CSV to SQL statements...but it's a PITA.
+
+With generate_temp_table_sql, I can now move the data in seconds.  I simply download the CSV, run <code>generate-tt-sql csv_name.csv</code> in my terminal, and copy it into my query editor.  It's immediately available to query so I can go straight to analysis.
+
+If you have the same problem, this will save you a ton of time!
+
+Also <a href="https://pypi.org/project/generate-temp-table-sql/" target="_blank">available in PyPi</a>.
 
 ## Features
 
