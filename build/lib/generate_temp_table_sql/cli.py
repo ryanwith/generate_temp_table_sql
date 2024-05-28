@@ -9,7 +9,7 @@ def main():
     parser.add_argument('--overwrite', action='store_true', help='Allow overwriting the output file if it exists')
     parser.add_argument('--table_name', type=str, help='The name of the temp table you will create')
     parser.add_argument('--column_type', type=str, help='The data type of the columns in the temp table.  Defaults to TEXT which works for Redshift and Snowflake.  BigQuery requires STRING.')
-    parser.add_argument('--batch_size', type=int, help='The number of rows inserted per insert statement.  If present, it creates multiple insert statements based on the batch size specified.')
+    parser.add_argument('--batch_size', type=int, help='Specify the number of rows inserted per insert statement.  If present, it creates multiple insert statements based on the batch size specified.')
 
     args = parser.parse_args()
     

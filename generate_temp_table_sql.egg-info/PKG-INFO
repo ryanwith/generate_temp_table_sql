@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: generate-temp-table-sql
-Version: 0.4.2
+Version: 0.4.3
 Summary: A package to generate SQL statements from CSV files
 Home-page: https://github.com/ryanwaldorf/generate_temp_table_sql
 Author: Ryan Waldorf
@@ -16,7 +16,9 @@ License-File: LICENSE.txt
 
 # Generate Temp Table SQL
 
-Generate Temp Table SQL is a Python package that generates SQL statements for creating a temporary table and inserting data from a CSV file.  It's useful when you need to move data between data warehouses that are otherwise not connected, so you can download a CSV and recreate the data in the other warehouse as a temporary table from the CSV.
+Generate Temp Table SQL is a Python package that generates SQL statements for creating a temporary table and inserting data from a CSV file.  It's useful when you need to move data between disconnected databases and data warehouses.  You can now simply unload a CSV, turn that CSV into SQL statements creating a temp table and inserting data with a CLI command, and copy those SQL statements into your query editor so you can start using the data in a different warehouse.
+
+<b>Why did I build this?</b>  I'm often wondering how a product I'm working on is linked to customer spend.  However, my operational warehouse that includes data like the dates and times customers used a product is separate from my financial warehouse which has the billing data.  I need to move data from one to the other so I can join the finance and product data together to do an analysis...and turning the CSV into SQL by hand in excel is a PITA.  With this, I can now move the data in seconds.  I simply download the CSV, run <code>generate-tt-sql csv_name.csv</code> in my terminal, and copy it into my query editor.  It's immediately available to query so I can go straight to analysis.
 
 ## Features
 
@@ -117,5 +119,7 @@ Contributions are welcome! Please follow these steps:
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 #### Author
-Ryan Waldorf - ryan@ryanwaldorf.com
+Ryan Waldorf - ryan@ryanwaldorf.com<br/>
+<a href="https://github.com/ryanwaldorf" target="_blank">GitHub</a>
+<a href="https://www.linkedin.com/in/ryan-waldorf/" target="_blank">LinkedIn</a>
 
