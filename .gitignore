@@ -8,6 +8,7 @@ build/
 dist/
 *.egg-info/
 .eggs/
+generate_temp_table_sql.egg-info/
 
 # Installer logs
 pip-log.txt
